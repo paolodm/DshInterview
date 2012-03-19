@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "DSH Interview Problem";
+}
+
+
+<script language="javascript" src="../../Scripts/jquery.quicksearch.js"></script>
+<script language="javascript" src="../../Scripts/HighValueCustomersViewModel.js"></script>
+<script language="javascript">
+    $(function () {
+        $(function () {
+
+            $.ajax(
+                {
+                    url: '@Url.Action("HighValue", "Customers")',
+                    success: function (data) {
+                        viewModel.Items(data);
+
+                        ko.applyBindings(viewModel);
+
+                        $("#quicksearch").quicksearch("#customerData tbody tr");
+
+                    }
+                });
+        });
+    });
+</script>
+
+<input type="text" id="quicksearch" placeholder="Search..." />
+
+<table id="customerData" class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Customer Since</th>
+            <th>Total Spent</th>
+        </tr>
+    </thead>
+    <tbody data-bind="template: { name: 'CustomerDetails', foreach: Items}">
+        
+    </tbody>
+</table>
+
+
+<script type="text/x-jquery-tmpl" id="CustomerDetails">
+    <tr>
+        <td data-bind="text: CustomerName"></td>
+        <td data-bind="text: Description"></td>
+        <td data-bind="text: CustomerSince"></td>
+        <td data-bind="text: TotalSpent"></td>
+    </tr>
+</script>

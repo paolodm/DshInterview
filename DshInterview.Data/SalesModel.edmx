@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SalesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SalesModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="SalesModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Products" EntityType="SalesModel.Store.Products" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sales" EntityType="SalesModel.Store.Sales" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SoldProducts" EntityType="SalesModel.Store.SoldProducts" store:Type="Tables" store:Schema="dbo" store:Name="SoldProducts">
+            <DefiningQuery>SELECT 
+      [SoldProducts].[SoldProductID] AS [SoldProductID], 
+      [SoldProducts].[SaleID] AS [SaleID], 
+      [SoldProducts].[ProductID] AS [ProductID], 
+      [SoldProducts].[NumberOfUnits] AS [NumberOfUnits]
+      FROM [dbo].[SoldProducts] AS [SoldProducts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Sales_Customer" Association="SalesModel.Store.FK_Sales_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoldProducts_Products" Association="SalesModel.Store.FK_SoldProducts_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="SoldProducts" EntitySet="SoldProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoldProducts_Sales" Association="SalesModel.Store.FK_SoldProducts_Sales">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="SoldProducts" EntitySet="SoldProducts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerSince" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="PricePerUnit" Type="decimal" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SaleDate" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Sales.dbo.SoldProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="SoldProducts">
+          <Key>
+            <PropertyRef Name="SoldProductID" />
+            <PropertyRef Name="SaleID" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="NumberOfUnits" />
+          </Key>
+          <Property Name="SoldProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SaleID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="NumberOfUnits" Type="decimal" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Sales_Customer">
+          <End Role="Customer" Type="SalesModel.Store.Customer" Multiplicity="1" />
+          <End Role="Sales" Type="SalesModel.Store.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoldProducts_Products">
+          <End Role="Products" Type="SalesModel.Store.Products" Multiplicity="1" />
+          <End Role="SoldProducts" Type="SalesModel.Store.SoldProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="SoldProducts">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoldProducts_Sales">
+          <End Role="Sales" Type="SalesModel.Store.Sales" Multiplicity="1" />
+          <End Role="SoldProducts" Type="SalesModel.Store.SoldProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="SoldProducts">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SalesModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SalesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="SalesModel.Customer" />
+          <EntitySet Name="Products" EntityType="SalesModel.Product" />
+          <EntitySet Name="Sales" EntityType="SalesModel.Sale" />
+          <EntitySet Name="SoldProducts" EntityType="SalesModel.SoldProduct" />
+          <AssociationSet Name="FK_Sales_Customer" Association="SalesModel.FK_Sales_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoldProducts_Sales" Association="SalesModel.FK_SoldProducts_Sales">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="SoldProducts" EntitySet="SoldProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SoldProducts_Products" Association="SalesModel.FK_SoldProducts_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="SoldProduct" EntitySet="SoldProducts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CustomerSince" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Sales" Relationship="SalesModel.FK_Sales_Customer" FromRole="Customer" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PricePerUnit" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="SoldProducts" Relationship="SalesModel.FK_SoldProducts_Products" FromRole="Product" ToRole="SoldProduct" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleDate" Type="DateTime" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="SalesModel.FK_Sales_Customer" FromRole="Sales" ToRole="Customer" />
+          <NavigationProperty Name="SoldProducts" Relationship="SalesModel.FK_SoldProducts_Sales" FromRole="Sales" ToRole="SoldProducts" />
+        </EntityType>
+        <EntityType Name="SoldProduct">
+          <Key>
+            <PropertyRef Name="SoldProductID" />
+            <PropertyRef Name="SaleID" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="NumberOfUnits" />
+          </Key>
+          <Property Name="SoldProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfUnits" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Sale" Relationship="SalesModel.FK_SoldProducts_Sales" FromRole="SoldProducts" ToRole="Sales" />
+          <NavigationProperty Name="Product" Relationship="SalesModel.FK_SoldProducts_Products" FromRole="SoldProduct" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Sales_Customer">
+          <End Role="Customer" Type="SalesModel.Customer" Multiplicity="1" />
+          <End Role="Sales" Type="SalesModel.Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoldProducts_Sales">
+          <End Role="Sales" Type="SalesModel.Sale" Multiplicity="1" />
+          <End Role="SoldProducts" Type="SalesModel.SoldProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="SoldProducts">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SoldProducts_Products">
+          <End Type="SalesModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="SalesModel.SoldProduct" Role="SoldProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="SoldProduct">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SalesModelStoreContainer" CdmEntityContainer="SalesEntities">
+          <EntitySetMapping Name="Customers"><EntityTypeMapping TypeName="SalesModel.Customer"><MappingFragment StoreEntitySet="Customer">
+            <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+            <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="CustomerSince" ColumnName="CustomerSince" />
+          </MappingFragment></EntityTypeMapping>
+            </EntitySetMapping>
+          <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="SalesModel.Product"><MappingFragment StoreEntitySet="Products">
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Sales"><EntityTypeMapping TypeName="SalesModel.Sale"><MappingFragment StoreEntitySet="Sales">
+            <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+            <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+            <ScalarProperty Name="Amount" ColumnName="Amount" />
+            <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SoldProducts"><EntityTypeMapping TypeName="SalesModel.SoldProduct"><MappingFragment StoreEntitySet="SoldProducts">
+            <ScalarProperty Name="SoldProductID" ColumnName="SoldProductID" />
+            <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="NumberOfUnits" ColumnName="NumberOfUnits" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SalesModel">
+        <EntityTypeShape EntityType="SalesModel.Customer" Width="1.5" PointX="0.75" PointY="1" Height="1.787985026041667" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesModel.Product" Width="1.5" PointX="1.125" PointY="4.25" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesModel.Sale" Width="1.5" PointX="5.375" PointY="0.875" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalesModel.SoldProduct" Width="1.5" PointX="5.125" PointY="4" Height="1.9802864583333335" IsExpanded="true" />
+        <AssociationConnector Association="SalesModel.FK_Sales_Customer" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.8939925130208335" />
+          <ConnectorPoint PointX="5.375" PointY="1.8939925130208335" />
+        </AssociationConnector>
+        <AssociationConnector Association="SalesModel.FK_SoldProducts_Sales" ManuallyRouted="false">
+          <ConnectorPoint PointX="6" PointY="3.0475878906249996" />
+          <ConnectorPoint PointX="6" PointY="4" />
+        </AssociationConnector>
+        <AssociationConnector Association="SalesModel.FK_SoldProducts_Products" >
+          <ConnectorPoint PointX="2.625" PointY="5.2112939453125" />
+          <ConnectorPoint PointX="5.125" PointY="5.2112939453125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

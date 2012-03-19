@@ -1,0 +1,8 @@
+C:\Projects\DSH\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Data.dll.config
+C:\Projects\DSH\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Data.dll
+C:\Projects\DSH\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Data.pdb
+C:\Projects\DSH\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Domain.dll
+C:\Projects\DSH\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Domain.pdb
+C:\Projects\DSH\DshInterview\DshInterview.Data\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\DSH\DshInterview\DshInterview.Data\obj\Debug\DshInterview.Data.dll
+C:\Projects\DSH\DshInterview\DshInterview.Data\obj\Debug\DshInterview.Data.pdb

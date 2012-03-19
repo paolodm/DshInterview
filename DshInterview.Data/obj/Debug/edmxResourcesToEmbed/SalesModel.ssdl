@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SalesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="SalesModelStoreContainer">
+    <EntitySet Name="Customer" EntityType="SalesModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Products" EntityType="SalesModel.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sales" EntityType="SalesModel.Store.Sales" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SoldProducts" EntityType="SalesModel.Store.SoldProducts" store:Type="Tables" store:Schema="dbo" store:Name="SoldProducts">
+      <DefiningQuery>SELECT 
+      [SoldProducts].[SoldProductID] AS [SoldProductID], 
+      [SoldProducts].[SaleID] AS [SaleID], 
+      [SoldProducts].[ProductID] AS [ProductID], 
+      [SoldProducts].[NumberOfUnits] AS [NumberOfUnits]
+      FROM [dbo].[SoldProducts] AS [SoldProducts]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Sales_Customer" Association="SalesModel.Store.FK_Sales_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SoldProducts_Products" Association="SalesModel.Store.FK_SoldProducts_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="SoldProducts" EntitySet="SoldProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SoldProducts_Sales" Association="SalesModel.Store.FK_SoldProducts_Sales">
+      <End Role="Sales" EntitySet="Sales" />
+      <End Role="SoldProducts" EntitySet="SoldProducts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+    <Property Name="CustomerSince" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+    <Property Name="PricePerUnit" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sales">
+    <Key>
+      <PropertyRef Name="SaleID" />
+    </Key>
+    <Property Name="SaleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SaleDate" Type="datetime" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'Sales.dbo.SoldProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="SoldProducts">
+    <Key>
+      <PropertyRef Name="SoldProductID" />
+      <PropertyRef Name="SaleID" />
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="NumberOfUnits" />
+    </Key>
+    <Property Name="SoldProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SaleID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="NumberOfUnits" Type="decimal" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Sales_Customer">
+    <End Role="Customer" Type="SalesModel.Store.Customer" Multiplicity="1" />
+    <End Role="Sales" Type="SalesModel.Store.Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SoldProducts_Products">
+    <End Role="Products" Type="SalesModel.Store.Products" Multiplicity="1" />
+    <End Role="SoldProducts" Type="SalesModel.Store.SoldProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="SoldProducts">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SoldProducts_Sales">
+    <End Role="Sales" Type="SalesModel.Store.Sales" Multiplicity="1" />
+    <End Role="SoldProducts" Type="SalesModel.Store.SoldProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sales">
+        <PropertyRef Name="SaleID" />
+      </Principal>
+      <Dependent Role="SoldProducts">
+        <PropertyRef Name="SaleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

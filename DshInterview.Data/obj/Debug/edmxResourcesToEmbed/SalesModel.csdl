@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SalesModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="SalesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="SalesModel.Customer" />
+    <EntitySet Name="Products" EntityType="SalesModel.Product" />
+    <EntitySet Name="Sales" EntityType="SalesModel.Sale" />
+    <EntitySet Name="SoldProducts" EntityType="SalesModel.SoldProduct" />
+    <AssociationSet Name="FK_Sales_Customer" Association="SalesModel.FK_Sales_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SoldProducts_Sales" Association="SalesModel.FK_SoldProducts_Sales">
+      <End Role="Sales" EntitySet="Sales" />
+      <End Role="SoldProducts" EntitySet="SoldProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SoldProducts_Products" Association="SalesModel.FK_SoldProducts_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="SoldProduct" EntitySet="SoldProducts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CustomerSince" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Sales" Relationship="SalesModel.FK_Sales_Customer" FromRole="Customer" ToRole="Sales" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PricePerUnit" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <NavigationProperty Name="SoldProducts" Relationship="SalesModel.FK_SoldProducts_Products" FromRole="Product" ToRole="SoldProduct" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="SaleID" />
+    </Key>
+    <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SaleDate" Type="DateTime" Nullable="false" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="SalesModel.FK_Sales_Customer" FromRole="Sales" ToRole="Customer" />
+    <NavigationProperty Name="SoldProducts" Relationship="SalesModel.FK_SoldProducts_Sales" FromRole="Sales" ToRole="SoldProducts" />
+  </EntityType>
+  <EntityType Name="SoldProduct">
+    <Key>
+      <PropertyRef Name="SoldProductID" />
+      <PropertyRef Name="SaleID" />
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="NumberOfUnits" />
+    </Key>
+    <Property Name="SoldProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SaleID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="NumberOfUnits" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <NavigationProperty Name="Sale" Relationship="SalesModel.FK_SoldProducts_Sales" FromRole="SoldProducts" ToRole="Sales" />
+    <NavigationProperty Name="Product" Relationship="SalesModel.FK_SoldProducts_Products" FromRole="SoldProduct" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_Sales_Customer">
+    <End Role="Customer" Type="SalesModel.Customer" Multiplicity="1" />
+    <End Role="Sales" Type="SalesModel.Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SoldProducts_Sales">
+    <End Role="Sales" Type="SalesModel.Sale" Multiplicity="1" />
+    <End Role="SoldProducts" Type="SalesModel.SoldProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sales">
+        <PropertyRef Name="SaleID" />
+      </Principal>
+      <Dependent Role="SoldProducts">
+        <PropertyRef Name="SaleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SoldProducts_Products">
+    <End Type="SalesModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="SalesModel.SoldProduct" Role="SoldProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="SoldProduct">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

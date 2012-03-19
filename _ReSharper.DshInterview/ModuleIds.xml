@@ -1,0 +1,6 @@
+<Modules>
+  <Module PersistentId="56BF8C2F-AF98-486D-ADBB-9384D638A093" ModuleId="DshInterview" />
+  <Module PersistentId="5494FFF3-A472-4BB8-A0AF-47610C7E10B9" ModuleId="DshInterview.Services" />
+  <Module PersistentId="1A7A40E4-D6CA-44DC-8419-AB9B7331117F" ModuleId="DshInterview.Data" />
+  <Module PersistentId="6D817D3D-E3FE-465C-80CF-19345FFAF302" ModuleId="DshInterview.Domain" />
+</Modules>

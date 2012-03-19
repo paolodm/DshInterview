@@ -1,0 +1,16 @@
+C:\Projects\DSH\DshInterview\DshInterview\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\DSH\DshInterview\DshInterview\bin\DshInterview.dll
+C:\Projects\DSH\DshInterview\DshInterview\bin\DshInterview.pdb
+C:\Projects\DSH\DshInterview\DshInterview\bin\AutoMapper.dll
+C:\Projects\DSH\DshInterview\DshInterview\bin\Bootstrapper.dll
+C:\Projects\DSH\DshInterview\DshInterview\bin\DshInterview.Domain.dll
+C:\Projects\DSH\DshInterview\DshInterview\bin\DshInterview.Services.dll
+C:\Projects\DSH\DshInterview\DshInterview\bin\EntityFramework.dll
+C:\Projects\DSH\DshInterview\DshInterview\bin\DshInterview.Data.dll
+C:\Projects\DSH\DshInterview\DshInterview\bin\DshInterview.Domain.pdb
+C:\Projects\DSH\DshInterview\DshInterview\bin\DshInterview.Services.pdb
+C:\Projects\DSH\DshInterview\DshInterview\bin\AutoMapper.xml
+C:\Projects\DSH\DshInterview\DshInterview\bin\EntityFramework.xml
+C:\Projects\DSH\DshInterview\DshInterview\bin\DshInterview.Data.pdb
+C:\Projects\DSH\DshInterview\DshInterview\obj\Debug\DshInterview.dll
+C:\Projects\DSH\DshInterview\DshInterview\obj\Debug\DshInterview.pdb
