@@ -14,6 +14,7 @@
     <AssemblyName>DshInterview</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -115,8 +116,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\HighValueCustomersViewModel.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>HighValueCustomersViewModel.coffee</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
@@ -160,10 +159,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="packages.config" />
     <None Include="readme.txt" />
-    <None Include="Scripts\HighValueCustomersViewModel.coffee">
-      <Generator>CoffeeScriptGenerator</Generator>
-      <LastGenOutput>HighValueCustomersViewModel.js</LastGenOutput>
-    </None>
+    <None Include="Scripts\HighValueCustomersViewModel.coffee" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

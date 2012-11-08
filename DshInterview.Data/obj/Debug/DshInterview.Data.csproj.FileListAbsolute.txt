@@ -6,3 +6,11 @@ C:\Projects\DSH\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Domain.pdb
 C:\Projects\DSH\DshInterview\DshInterview.Data\obj\Debug\ResolveAssemblyReference.cache
 C:\Projects\DSH\DshInterview\DshInterview.Data\obj\Debug\DshInterview.Data.dll
 C:\Projects\DSH\DshInterview\DshInterview.Data\obj\Debug\DshInterview.Data.pdb
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Data.dll.config
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Data.dll
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Data.pdb
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Domain.dll
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Data\bin\Debug\DshInterview.Domain.pdb
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Data\obj\Debug\DshInterview.Data.csprojResolveAssemblyReference.cache
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Data\obj\Debug\DshInterview.Data.dll
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Data\obj\Debug\DshInterview.Data.pdb

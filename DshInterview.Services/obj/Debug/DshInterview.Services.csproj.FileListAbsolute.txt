@@ -7,3 +7,12 @@ C:\Projects\DSH\DshInterview\DshInterview.Services\bin\Debug\DshInterview.Domain
 C:\Projects\DSH\DshInterview\DshInterview.Services\obj\Debug\ResolveAssemblyReference.cache
 C:\Projects\DSH\DshInterview\DshInterview.Services\obj\Debug\DshInterview.Services.dll
 C:\Projects\DSH\DshInterview\DshInterview.Services\obj\Debug\DshInterview.Services.pdb
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\bin\Debug\DshInterview.Services.dll
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\bin\Debug\DshInterview.Services.pdb
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\bin\Debug\DshInterview.Data.dll
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\bin\Debug\DshInterview.Domain.dll
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\bin\Debug\DshInterview.Data.pdb
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\bin\Debug\DshInterview.Domain.pdb
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\obj\Debug\DshInterview.Services.csprojResolveAssemblyReference.cache
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\obj\Debug\DshInterview.Services.dll
+C:\Users\Paolo\Documents\GitHub\DshInterview\DshInterview.Services\obj\Debug\DshInterview.Services.pdb

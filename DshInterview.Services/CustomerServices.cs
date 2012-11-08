@@ -32,5 +32,22 @@ namespace DshInterview.Services
 
             return customers;
         }
+
+        public void Save(CustomerAggregate customer)
+        {
+            using (SalesEntities entities = new SalesEntities())
+            {
+                entities.Customers.Attach(
+                    new Customer() 
+                    { 
+                        CustomerID = customer.CustomerID, 
+                        CustomerName = customer.CustomerName, 
+                        CustomerSince = customer.CustomerSince, 
+                        Description = customer.Description
+                    }
+                );
+            }
+
+        }
     }
 }

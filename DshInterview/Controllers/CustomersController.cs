@@ -12,17 +12,22 @@ namespace DshInterview.Controllers
 {
     public class CustomersController : Controller
     {
-        //
-        // GET: /Customers/
+        CustomerServices customerService = new CustomerServices();
 
         [HttpGet]
         public JsonResult HighValue()
-        {
-            CustomerServices customerService = new CustomerServices();
-
+        {            
             var customers = Mapper.Map<IList<CustomerAggregate>, IList<CustomerDto>>(customerService.GetHighValueCustomers());
 
             return Json(customers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Save(CustomerAggregate customer)
+        {
+            customerService.Save(customer);
+
+            return Json(true);
         }
 
     }

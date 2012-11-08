@@ -1,15 +1,11 @@
 ﻿@{
     ViewBag.Title = "DSH Interview Problem";
 }
-
-
 <script language="javascript" src="../../Scripts/jquery.quicksearch.js"></script>
 <script language="javascript" src="../../Scripts/HighValueCustomersViewModel.js"></script>
 <script language="javascript">
     $(function () {
-        $(function () {
-
-            $.ajax(
+        $.ajax(
                 {
                     url: '@Url.Action("HighValue", "Customers")',
                     success: function (data) {
@@ -18,35 +14,79 @@
                         ko.applyBindings(viewModel);
 
                         $("#quicksearch").quicksearch("#customerData tbody tr");
-
                     }
                 });
-        });
     });
+    
 </script>
-
 <input type="text" id="quicksearch" placeholder="Search..." />
-
 <table id="customerData" class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Customer Since</th>
-            <th>Total Spent</th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Customer Since
+            </th>
+            <th>
+                Total Spent
+            </th>
         </tr>
     </thead>
     <tbody data-bind="template: { name: 'CustomerDetails', foreach: Items}">
-        
     </tbody>
 </table>
-
-
+<form class="form-horizontal" data-bind="with: CustomerEntry" style="margin-top: 200px">
+<div class="control-group">
+    <label class="control-label" for="inputEmail">
+        Customer Name
+    </label>
+    <div class="controls">
+        <input type="text" placeholder="Name" data-bind="value: CustomerName" />
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="inputEmail">
+        Description
+    </label>
+    <div class="controls">
+        <input type="text" placeholder="Description" data-bind="value: Description">
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="inputEmail">
+        Customer Since
+    </label>
+    <div class="controls">
+        <input type="text" placeholder="Description" data-bind="value: CustomerSince">
+    </div>
+</div>
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">
+            Total Spent
+        </label>
+        <div class="controls">
+            <input type="text" placeholder="Description" data-bind="value: TotalSpent">
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <input type="button" value="Save" data-bind="click: function() { viewModel.SaveCustomer($data) } "/>
+        
+    </div>
+</form>
 <script type="text/x-jquery-tmpl" id="CustomerDetails">
     <tr>
         <td data-bind="text: CustomerName"></td>
         <td data-bind="text: Description"></td>
         <td data-bind="text: CustomerSince"></td>
         <td data-bind="text: TotalSpent"></td>
+        <td>
+            <input type="button" value="Edit" data-bind="click: function() { viewModel.EditCustomer($data) } " />
+        </td>
     </tr>
 </script>

@@ -14,28 +14,49 @@
     function CustomerDto(data) {
       this.self = this;
       this.CustomerID = ko.observable();
-      this.Name = ko.observable();
+      this.CustomerName = ko.observable();
       this.Description = ko.observable();
       this.CustomerSince = ko.observable();
       this.TotalSpent = ko.observable();
-      ko.mapping.fromJS(data, _, this.self);
+      if (data != null) {
+        ko.mapping.fromJS(data, _, this.self);
+      }
     }
 
     return CustomerDto;
 
   })();
 
+  window.CustomerDto = CustomerDto;
+
   HighValueCustomersViewModel = (function() {
 
     function HighValueCustomersViewModel() {
       this.Items = ko.observableArray([]);
+      this.CustomerEntry = new CustomerDto();
     }
+
+    HighValueCustomersViewModel.prototype.EditCustomer = function(customer) {
+      this.CustomerEntry.CustomerID(customer.CustomerID);
+      this.CustomerEntry.CustomerName(customer.CustomerName);
+      this.CustomerEntry.Description(customer.Description);
+      this.CustomerEntry.CustomerSince(customer.CustomerSince);
+      return this.CustomerEntry.TotalSpent(customer.TotalSpent);
+    };
+
+    HighValueCustomersViewModel.prototype.SaveCustomer = function(customer) {
+      return $.ajax({
+        url: "/Customers/Save",
+        method: "POST",
+        data: {
+          CustomerName: this.CustomerEntry.CustomerName()
+        }
+      });
+    };
 
     return HighValueCustomersViewModel;
 
   })();
-
-  window.CustomerDto = CustomerDto;
 
   window.viewModel = new HighValueCustomersViewModel();
 

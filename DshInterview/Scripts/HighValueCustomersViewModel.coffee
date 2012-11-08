@@ -8,18 +8,35 @@ class CustomerDto
 		@self = this
 
 		@CustomerID = ko.observable()
-		@Name = ko.observable()
+		@CustomerName = ko.observable()
 		@Description = ko.observable()
 		@CustomerSince = ko.observable()
 		@TotalSpent = ko.observable()  
 
-		ko.mapping.fromJS(data, _, @self)
+		if data?
+			ko.mapping.fromJS(data, _, @self)
+
+window.CustomerDto = CustomerDto
 
 class HighValueCustomersViewModel
 	constructor: () ->
 		@Items = ko.observableArray([])
+		@CustomerEntry = new CustomerDto()
+	
+	EditCustomer: (customer) ->
+		@CustomerEntry.CustomerID(customer.CustomerID)
+		@CustomerEntry.CustomerName(customer.CustomerName)
+		@CustomerEntry.Description(customer.Description)
+		@CustomerEntry.CustomerSince(customer.CustomerSince)
+		@CustomerEntry.TotalSpent(customer.TotalSpent)
 
-window.CustomerDto = CustomerDto
+	SaveCustomer: (customer) ->
+		$.ajax({
+			url: "/Customers/Save",
+			method: "POST",
+			data: 
+				CustomerName: @CustomerEntry.CustomerName()
+		});
 
 window.viewModel = new HighValueCustomersViewModel()
 
